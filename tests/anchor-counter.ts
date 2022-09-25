@@ -33,4 +33,14 @@ describe("anchor-counter", () => {
     const account = await program.account["counter"].fetch(counter.publicKey)
     expect(account.count.toNumber() === 1)
   })
+
+  it("Decremented the count", async () => {
+    const tx = await program.methods
+      .decrement()
+      .accounts({ counter: counter.publicKey })
+      .rpc()
+
+    const account = await program.account["counter"].fetch(counter.publicKey)
+    expect(account.count.toNumber() === 0)
+  })
 })

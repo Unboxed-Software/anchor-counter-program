@@ -20,6 +20,14 @@ pub mod anchor_counter {
         msg!("Counter incremented. Current count: {}", counter.count);
         Ok(())
     }
+
+    pub fn decrement(ctx: Context<Update>) -> Result<()> {
+        let counter = &mut ctx.accounts.counter;
+        msg!("Previous count: {}", counter.count);
+        counter.count = counter.count.checked_sub(1).unwrap();
+        msg!("Counter decremented. Current count: {}", counter.count);
+        Ok(())
+    }
 }
 
 #[derive(Accounts)]
