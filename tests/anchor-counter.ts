@@ -1,5 +1,5 @@
-import * as anchor from "@project-serum/anchor"
-import { Program } from "@project-serum/anchor"
+import * as anchor from "@coral-xyz/anchor"
+import { Program } from "@coral-xyz/anchor"
 import { expect } from "chai"
 import { AnchorCounter } from "../target/types/anchor_counter"
 
@@ -16,7 +16,9 @@ describe("anchor-counter", () => {
     // Add your test here.
     const tx = await program.methods
       .initialize()
-      .accounts({ counter: counter.publicKey })
+      .accounts({ 
+        counter: counter.publicKey 
+      })
       .signers([counter])
       .rpc()
 
@@ -27,7 +29,10 @@ describe("anchor-counter", () => {
   it("Incremented the count", async () => {
     const tx = await program.methods
       .increment()
-      .accounts({ counter: counter.publicKey, user: provider.wallet.publicKey })
+      .accounts({
+        counter: counter.publicKey,
+        user: provider.wallet.publicKey 
+      })
       .rpc()
 
     const account = await program.account["counter"].fetch(counter.publicKey)
@@ -37,7 +42,9 @@ describe("anchor-counter", () => {
   it("Decremented the count", async () => {
     const tx = await program.methods
       .decrement()
-      .accounts({ counter: counter.publicKey })
+      .accounts({ 
+        counter: counter.publicKey 
+      })
       .rpc()
 
     const account = await program.account["counter"].fetch(counter.publicKey)
