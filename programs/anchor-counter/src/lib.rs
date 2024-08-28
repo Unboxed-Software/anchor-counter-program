@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("9sMy4hnC9MML6mioESFZmzpntt3focqwUq1ymPgbMf64");
+declare_id!("5UzK5Js2ZdAHSx34vCjhLG5TzPAfnpMRCuf2DJ6HLfdt");
 
 // Size of the anchor discrimitaror, needed for the space calculation.
 const ANCHOR_DISCRIMINATOR: usize = 8;
@@ -26,6 +26,17 @@ pub mod anchor_counter {
 
         // Increment the counter value and log it.
         counter.count = counter.count.checked_add(1).unwrap();
+        msg!("Counter incremented. Current count: {}", counter.count);
+        Ok(())
+    }
+
+    pub fn decrement(ctx: Context<Update>) -> Result<()> {
+        // Load the current counter value.
+        let counter = &mut ctx.accounts.counter;
+        msg!("Previous counter: {}", counter.count);
+
+        // Decrement the counter value and log it.
+        counter.count = counter.count.checked_sub(1).unwrap();
         msg!("Counter incremented. Current count: {}", counter.count);
         Ok(())
     }
